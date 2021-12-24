@@ -21,15 +21,17 @@ public class ActionsTest {
     }
 
     @Test(priority = 1)
-    void test1() throws Exception{
+    void test1() throws Exception {
         //drag and drop
-        Thread.sleep(5000);
-        List <WebElement> source = driver.findElements(By.xpath("h5[class='ui-widget-header']"));
-//        WebElement destination = driver.findElement(By.cssSelector("h4.ui-widget-header"));
+        
         Actions action = new Actions(driver);
-        for (WebElement win:source
+        driver.switchTo().frame(driver.findElement(By.xpath("//iframe[@class='demo-frame lazyloaded']")));
+        List <WebElement> sources = driver.findElements(By.xpath("//h5[@class='ui-widget-header']"));
+        WebElement destination = driver.findElement(By.xpath("//div[@id='trash']"));
+        for (WebElement src:sources
              ) {
-            action.dragAndDropBy(win,1000,0).build().perform();
+            action.dragAndDrop(src, destination).build().perform();
+
         }
 
     }
